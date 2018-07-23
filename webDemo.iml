@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module type="JAVA_MODULE" version="4">
+  <component name="FacetManager">
+    <facet type="hibernate" name="Hibernate">
+      <configuration>
+        <datasource-map>
+          <unit-entry name="hibernate.cfg.xml" value="2748a22a-8dc2-41da-b966-0f8b4b9f5d75" />
+          <unit-entry name="sessionFactory" value="92c318f2-2d69-4dc8-b079-077ea1bd96b8" />
+        </datasource-map>
+        <naming-strategy-map />
+        <deploymentDescriptor name="hibernate.cfg.xml" url="file://$MODULE_DIR$/src/main/resource/hibernate.cfg.xml" />
+      </configuration>
+    </facet>
+    <facet type="dmServerConfig" name="Spring DM Configuration">
+      <configuration>
+        <option name="name" value="webDemo" />
+      </configuration>
+    </facet>
+    <facet type="Spring" name="Spring">
+      <configuration>
+        <fileset id="fileset" name="Spring Application Context" removed="false">
+          <file>file://$MODULE_DIR$/src/main/webapp/WEB-INF/spring-mvc.xml</file>
+        </fileset>
+      </configuration>
+    </facet>
+  </component>
+</module>
