@@ -2,9 +2,15 @@ package demo.entities;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
+import java.util.Collection;
 import java.util.Objects;
 
+/**
+ * @author FangJ
+ * @create 2018-07-27-22:01
+ */
 @Entity
+@Table(name = "upload_files", schema = "demo", catalog = "")
 public class UploadFiles {
     private int id;
     private String type;
@@ -12,9 +18,11 @@ public class UploadFiles {
     private String fsName;
     private String suffix;
     private Timestamp createTime;
+    private Users usersByUserId;
+    private Collection<Users> usersById;
 
     @Id
-    @Column(name = "id")
+    @Column(name = "id", nullable = false)
     public int getId() {
         return id;
     }
@@ -24,7 +32,7 @@ public class UploadFiles {
     }
 
     @Basic
-    @Column(name = "type")
+    @Column(name = "type", nullable = false, length = 16)
     public String getType() {
         return type;
     }
@@ -34,7 +42,7 @@ public class UploadFiles {
     }
 
     @Basic
-    @Column(name = "name")
+    @Column(name = "name", nullable = false, length = 40)
     public String getName() {
         return name;
     }
@@ -44,7 +52,7 @@ public class UploadFiles {
     }
 
     @Basic
-    @Column(name = "fs_name")
+    @Column(name = "fs_name", nullable = false, length = 16)
     public String getFsName() {
         return fsName;
     }
@@ -54,7 +62,7 @@ public class UploadFiles {
     }
 
     @Basic
-    @Column(name = "suffix")
+    @Column(name = "suffix", nullable = false, length = 8)
     public String getSuffix() {
         return suffix;
     }
@@ -64,7 +72,7 @@ public class UploadFiles {
     }
 
     @Basic
-    @Column(name = "create_time")
+    @Column(name = "create_time", nullable = false)
     public Timestamp getCreateTime() {
         return createTime;
     }
@@ -90,5 +98,24 @@ public class UploadFiles {
     public int hashCode() {
 
         return Objects.hash(id, type, name, fsName, suffix, createTime);
+    }
+
+    @ManyToOne
+    @JoinColumn(name = "user_id", referencedColumnName = "id", nullable = false)
+    public Users getUsersByUserId() {
+        return usersByUserId;
+    }
+
+    public void setUsersByUserId(Users usersByUserId) {
+        this.usersByUserId = usersByUserId;
+    }
+
+    @OneToMany(mappedBy = "uploadFilesByHeadId")
+    public Collection<Users> getUsersById() {
+        return usersById;
+    }
+
+    public void setUsersById(Collection<Users> usersById) {
+        this.usersById = usersById;
     }
 }

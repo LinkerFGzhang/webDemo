@@ -1,12 +1,13 @@
 package demo.entities;
 
-import javax.persistence.Basic;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.math.BigDecimal;
 import java.util.Objects;
 
+/**
+ * @author FangJ
+ * @create 2018-07-27-22:01
+ */
 @Entity
 public class Cameras {
     private int id;
@@ -18,9 +19,10 @@ public class Cameras {
     private String address;
     private BigDecimal longitude;
     private BigDecimal latitude;
+    private Users usersByUserId;
 
     @Id
-    @Column(name = "id")
+    @Column(name = "id", nullable = false)
     public int getId() {
         return id;
     }
@@ -30,7 +32,7 @@ public class Cameras {
     }
 
     @Basic
-    @Column(name = "name")
+    @Column(name = "name", nullable = false, length = 20)
     public String getName() {
         return name;
     }
@@ -40,7 +42,7 @@ public class Cameras {
     }
 
     @Basic
-    @Column(name = "description")
+    @Column(name = "description", nullable = true, length = 40)
     public String getDescription() {
         return description;
     }
@@ -50,7 +52,7 @@ public class Cameras {
     }
 
     @Basic
-    @Column(name = "url")
+    @Column(name = "url", nullable = false, length = 100)
     public String getUrl() {
         return url;
     }
@@ -60,7 +62,7 @@ public class Cameras {
     }
 
     @Basic
-    @Column(name = "width")
+    @Column(name = "width", nullable = false)
     public int getWidth() {
         return width;
     }
@@ -70,7 +72,7 @@ public class Cameras {
     }
 
     @Basic
-    @Column(name = "height")
+    @Column(name = "height", nullable = false)
     public int getHeight() {
         return height;
     }
@@ -80,7 +82,7 @@ public class Cameras {
     }
 
     @Basic
-    @Column(name = "address")
+    @Column(name = "address", nullable = true, length = 50)
     public String getAddress() {
         return address;
     }
@@ -90,7 +92,7 @@ public class Cameras {
     }
 
     @Basic
-    @Column(name = "longitude")
+    @Column(name = "longitude", nullable = false, precision = 6)
     public BigDecimal getLongitude() {
         return longitude;
     }
@@ -100,7 +102,7 @@ public class Cameras {
     }
 
     @Basic
-    @Column(name = "latitude")
+    @Column(name = "latitude", nullable = false, precision = 6)
     public BigDecimal getLatitude() {
         return latitude;
     }
@@ -129,5 +131,15 @@ public class Cameras {
     public int hashCode() {
 
         return Objects.hash(id, name, description, url, width, height, address, longitude, latitude);
+    }
+
+    @ManyToOne
+    @JoinColumn(name = "user_id", referencedColumnName = "id", nullable = false)
+    public Users getUsersByUserId() {
+        return usersByUserId;
+    }
+
+    public void setUsersByUserId(Users usersByUserId) {
+        this.usersByUserId = usersByUserId;
     }
 }

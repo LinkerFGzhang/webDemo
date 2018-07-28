@@ -1,19 +1,21 @@
 package demo.entities;
 
-import javax.persistence.Basic;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.util.Objects;
 
+/**
+ * @author FangJ
+ * @create 2018-07-27-22:01
+ */
 @Entity
 public class Groups {
     private int id;
     private String name;
     private String description;
+    private Users usersByOwnerId;
 
     @Id
-    @Column(name = "id")
+    @Column(name = "id", nullable = false)
     public int getId() {
         return id;
     }
@@ -23,7 +25,7 @@ public class Groups {
     }
 
     @Basic
-    @Column(name = "name")
+    @Column(name = "name", nullable = false, length = 20)
     public String getName() {
         return name;
     }
@@ -33,7 +35,7 @@ public class Groups {
     }
 
     @Basic
-    @Column(name = "description")
+    @Column(name = "description", nullable = true, length = 40)
     public String getDescription() {
         return description;
     }
@@ -56,5 +58,24 @@ public class Groups {
     public int hashCode() {
 
         return Objects.hash(id, name, description);
+    }
+
+    @ManyToOne
+    @JoinColumn(name = "owner_id", referencedColumnName = "id")
+    public Users getUsersByOwnerId() {
+        return usersByOwnerId;
+    }
+
+    public void setUsersByOwnerId(Users usersByOwnerId) {
+        this.usersByOwnerId = usersByOwnerId;
+    }
+
+    @Override
+    public String toString() {
+        return "Groups{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", description='" + description + '\'' +
+                '}';
     }
 }
