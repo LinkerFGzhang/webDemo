@@ -6,14 +6,18 @@
     <session-factory>
         <property name="connection.url">jdbc:mysql://localhost:3306/demo</property>
         <property name="connection.driver_class">com.mysql.jdbc.Driver</property>
-        <mapping resource="model.Users.hbm.xml"/>
+        <property name="connection.username">root</property>
+        <property name="connection.password">root</property>
         <mapping class="demo.entities.Users" />
-        <mapping resource="model.Cameras.hbm.xml"/>
         <mapping class="demo.entities.Cameras" />
-        <mapping resource="model.Groups.hbm.xml"/>
         <mapping class="demo.entities.Groups" />
-        <mapping resource="model.UploadFiles.hbm.xml"/>
         <mapping class="demo.entities.UploadFiles" />
+        <mapping resource="demo/entities/Cameras.hbm.xml"/>
+        <mapping resource="demo/entities/Groups.hbm.xml"/>
+        <mapping resource="demo/entities/UploadFiles.hbm.xml"/>
+        <mapping resource="demo/entities/Users.hbm.xml"/>
+
+        <property name="current_session_context_class">thread</property>
 
     </session-factory>
 </hibernate-configuration>

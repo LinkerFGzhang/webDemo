@@ -5,8 +5,17 @@
 <hibernate-mapping>
 
     <class name="demo.entities.Groups" table="groups" schema="demo">
-        <id name="id" column="id"/>
-        <property name="name" column="name"/>
-        <property name="description" column="description"/>
+        <id name="id">
+            <column name="id" sql-type="int(11)"/>
+        </id>
+        <property name="name">
+            <column name="name" sql-type="varchar(20)" length="20"/>
+        </property>
+        <property name="description">
+            <column name="description" sql-type="varchar(40)" length="40" not-null="true"/>
+        </property>
+        <many-to-one name="usersByOwnerId" class="demo.entities.Users">
+            <column name="owner_id" not-null="true"/>
+        </many-to-one>
     </class>
 </hibernate-mapping>
