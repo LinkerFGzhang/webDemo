@@ -6,8 +6,12 @@ import demo.service.GroupService;
 import demo.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 
+import java.util.List;
 import java.util.Map;
 
 @Controller
@@ -27,23 +31,17 @@ public class UserController {
      * 显示所有用户信息
      */
     @RequestMapping(value = "/list/{id}", method = RequestMethod.GET)
-    public String userList(@PathVariable("id")Integer uid, Map<String, Object> map) {
+    public String userList(@PathVariable("id") Integer uid, Map<String, Object> map) {
         System.out.println("访问用户列表...");
-        //map = userService.getAllUser(uid);
-        //当前用户所属权限
-
-
-        //当前用户所能查看的全部分组
-
-
-        //当前用户所能查看各分组的成员
-
-
+        List<Object[]> allGroups = groupService.getAccessibilityGroups(uid);
+        map.put("allGroup", allGroups);
+        Map<String, Object> temp = userService.getAccessibilityUsers(uid);
+        map.putAll(temp);
         return "userMenu/userList";
     }
 
     /**
-     *  添加用户信息
+     * 添加用户信息
      */
     @RequestMapping(value = "/add", method = RequestMethod.POST)
     public String userSave(@ModelAttribute Users user) {
@@ -51,8 +49,8 @@ public class UserController {
         return "redirect:/userList";
     }
 
-    @RequestMapping(value = "/add", method = RequestMethod.GET)
-    public String userAdd(Map<String, Object> map) {
+    @RequestMapping(value = "/add/{id}", method = RequestMethod.GET)
+    public String userAdd(@PathVariable("id") Integer id, Map<String, Object> map) {
         System.out.println("添加用户测试...");
         map.put("group", groupService.getGroups());
         map.put("user", new Users());
@@ -91,8 +89,8 @@ public class UserController {
         return "redirect:/userList";
     }
 
-    @RequestMapping(value = "/test",method = RequestMethod.GET)
-    public void test(){
+    @RequestMapping(value = "/test", method = RequestMethod.GET)
+    public void test() {
         userDao.test();
     }
 }

@@ -1,6 +1,7 @@
 package demo.entities;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.Objects;
 
 /**
@@ -8,7 +9,7 @@ import java.util.Objects;
  * @create 2018-07-27-22:01
  */
 @Entity
-public class Groups {
+public class Groups implements Serializable {
     private int id;
     private String name;
     private String description;
@@ -77,5 +78,21 @@ public class Groups {
                 ", name='" + name + '\'' +
                 ", description='" + description + '\'' +
                 '}';
+    }
+
+    public Groups() {
+    }
+
+    public Groups(int id, String name, String description) {
+        this.id = id;
+        this.name = name;
+        this.description = description;
+    }
+
+    public Groups(int id, String name, String description, Users usersByOwnerId) {
+        this.id = id;
+        this.name = name;
+        this.description = description;
+        this.usersByOwnerId = usersByOwnerId;
     }
 }

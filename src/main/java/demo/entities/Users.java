@@ -1,6 +1,7 @@
 package demo.entities;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.sql.Timestamp;
 import java.util.Objects;
 
@@ -9,7 +10,7 @@ import java.util.Objects;
  * @create 2018-07-27-22:01
  */
 @Entity
-public class Users {
+public class Users  implements Serializable {
     private int id;
     private String name;
     private String password;

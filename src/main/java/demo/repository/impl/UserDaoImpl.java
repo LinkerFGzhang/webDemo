@@ -22,14 +22,13 @@ public class UserDaoImpl extends HibernateDaoSupport implements UserDao {
     }
 
     @Override
-    public Map<String, Object> getAllUser(Integer uid) {
+    public Map<String, Object> getAccessibilityUsers(Integer uid) {
         //存放信息的map
         Map<String, Object> map = new HashMap<String, Object>();
         if (uid == 1) {
-            map.put("currentUser", "超级管理员");
             //用户组信息
             String hql1 = "select g.id,g.description from Groups g order by g.id";
-            Object object = getSessionFactory().getCurrentSession().createQuery(hql1).list();
+            List<Groups> object = getSessionFactory().getCurrentSession().createQuery(hql1).list();
             map.put("allGroup", object);
             //用户信息
             String hql2 = "select u,g.description from Users u inner join u.groupsByGroupId g order by g.id";
@@ -40,30 +39,29 @@ public class UserDaoImpl extends HibernateDaoSupport implements UserDao {
             //当前用户所在组
             Integer gid = (Integer) getSessionFactory().getCurrentSession().createQuery(hql3).setParameter(0, uid).uniqueResult();
 
-            System.out.println("gid------>" + gid);
-            map.put("groupId", gid);
+            //System.out.println("gid------>" + gid);
+            //map.put("groupId", gid);
             if (gid == 1) {
-                String hql4 = "select g.id,g.description from Groups g where g.id > 1 order by g.id";
-                List<Groups> allGroup = getSessionFactory().getCurrentSession().createQuery(hql4).list();
-
-                System.out.println("可查看的用户组有------>" + allGroup.size());
-                map.put("allGroup", allGroup);
-                //查询大于该分组的数据
-                String hql5 = "select u,g.description from Users u inner join u.groupsByGroupId g where g.id >1 order by g.id";
+                //查询大于该分组的所有成员数据
+                String hql5 = "from Users u inner join u.groupsByGroupId g where g.id >1 order by g.id";
                 List<Object[]> allUser = getSessionFactory().getCurrentSession().createQuery(hql5).list();
-
                 System.out.println("查询到数据库的用户有-------" + allUser.size());
+//                List<Users> list = new ArrayList<Users>();
+//                for (Iterator iterator = allUser.iterator();iterator.hasNext();){
+//                    Object[] obj = (Object[]) iterator.next();
+//                    System.out.println(obj.length);
+//                    for (Object object : obj) {
+//                        System.out.println(object);
+//                    }
+//                }
                 map.put("allUser", allUser);
             } else if (gid == 2) {
-                String hql6 = "select g.id,g.description from Groups g where g.id=? order by g.id";
-                map.put("allGroup", getSessionFactory().getCurrentSession().createQuery(hql6).setParameter(0, gid).uniqueResult());
                 //高级用户只能查看自己组下的用户
-                String hql7 = "select u,g.description from Users u inner join u.groupsByGroupId g where u.groupsByGroupId in " +
+                String hql7 = "select u from Users u inner join u.groupsByGroupId g where u.groupsByGroupId in " +
                         "(select groupsByGroupId from Users where id=2)";
                 Object object4 = getSessionFactory().getCurrentSession().createQuery(hql7).list();
                 map.put("allUser", object4);
             } else {
-                map.put("allGroup", null);
                 map.put("allUser", null);
             }
         }
@@ -90,6 +88,17 @@ public class UserDaoImpl extends HibernateDaoSupport implements UserDao {
     @Override
     public Users getUser(Integer id) {
         return getSessionFactory().getCurrentSession().get(Users.class, id);
+    }
+
+    @Override
+    public List<Object[]> getAddGroupUsers(int gid) {
+        List<Object[]> obj = null;
+        if(gid == 1){
+            String hql = "select u from Groups g inner join g.usersByOwnerId u where g.id <=2 order by u.id";
+            obj = getSessionFactory().getCurrentSession().createQuery(hql).list();
+            System.out.println(obj);
+        }
+        return null;
     }
 
     public void test() {

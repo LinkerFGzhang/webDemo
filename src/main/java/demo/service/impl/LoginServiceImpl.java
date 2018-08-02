@@ -1,5 +1,6 @@
 package demo.service.impl;
 
+import demo.entities.Groups;
 import demo.entities.Users;
 import demo.repository.LoginDao;
 import demo.service.LoginService;
@@ -18,5 +19,10 @@ public class LoginServiceImpl implements LoginService {
     @Transactional(readOnly = true)
     public Users login(String username, String password) {
         return loginDao.login(username, password);
+    }
+
+    @Override
+    public Groups getGroup(int uid) {
+        return loginDao.getGroup(uid);
     }
 }

@@ -14,7 +14,7 @@
         <property name="description">
             <column name="description" sql-type="varchar(40)" length="40" not-null="true"/>
         </property>
-        <many-to-one name="usersByOwnerId" class="demo.entities.Users">
+        <many-to-one name="usersByOwnerId" class="demo.entities.Users" cascade="none">
             <column name="owner_id" not-null="true"/>
         </many-to-one>
     </class>

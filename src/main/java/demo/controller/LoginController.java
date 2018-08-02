@@ -1,5 +1,6 @@
 package demo.controller;
 
+import demo.entities.Groups;
 import demo.entities.Users;
 import demo.service.LoginService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,7 +8,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpSession;
 
@@ -18,7 +18,7 @@ public class LoginController {
     private LoginService loginService;
 
     @RequestMapping(value = "/login", method = RequestMethod.GET)
-    public String tologin(){
+    public String tologin() {
         return "login";
     }
 
@@ -27,10 +27,14 @@ public class LoginController {
         Users user = loginService.login(temp.getName(), temp.getPassword());
         System.out.println(user);
         if (user != null) {
-            session.setAttribute("user", user);
+
+            session.setAttribute("loginUser", user);
+            Groups groups = loginService.getGroup(user.getId());
+            System.out.println(groups);
+            session.setAttribute("loginGroup", groups);
             return "redirect:menu";
         } else {
-            session.setAttribute("message","用户名或密码错误");
+            session.setAttribute("message", "用户名或密码错误");
             return "login_fail";
         }
     }
@@ -50,7 +54,7 @@ public class LoginController {
 //    }
 
     @RequestMapping(name = "/logout", method = RequestMethod.GET)
-    public String logout(HttpSession session){
+    public String logout(HttpSession session) {
         session.invalidate();
         return "redirect:/index.jsp";
     }

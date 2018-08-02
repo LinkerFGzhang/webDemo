@@ -5,24 +5,22 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <title>后台管理系统</title>
-    <link href="js/bootstrap-3.3.7-dist/css/bootstrap.css" rel="stylesheet">
-    <link href="/css/menu.css" rel="stylesheet">
+    <link href="${pageContext.request.contextPath}/js/bootstrap-3.3.7-dist/css/bootstrap-theme.css" rel="stylesheet">
+    <link href="${pageContext.request.contextPath}/js/bootstrap-3.3.7-dist/css/bootstrap.css" rel="stylesheet">
+    <link href="${pageContext.request.contextPath}/css/menu.css" rel="stylesheet">
 </head>
 <body>
 <!--菜单栏-->
 <div class="navbar navbar-duomi navbar-static-top" role="navigation">
     <div class="container-fluid">
         <div class="navbar-header">
-            <ul class="nav pull-left">
+            <ul class="nav full-left">
                 <li><a class="navbar-brand" href="#" id="logo">XXXX后台管理系统</a></li>
             </ul>
-            <ul class="nav pull-right nvabar-nav">
-                <li><span><img src="${pageContext.request.contextPath}/images/user.png"
-                               width="20px" height="28px"/></span><a href="user/toUpdate?id=${user.id}"><span
-                        style="padding-top:5px">${user.genericName}</span></a></li>
-                <li><a href="/logout"><span><img src="/images/logout.png" width="20px"
-                                                 height="28px"/></span></a></li>
-            </ul>
+            <p class="navbar-text navbar-right"><i class="glyphicon glyphicon-th-list"></i><a
+                    href="user/toUpdate?id=${loginUser.id}"><span
+                    style="padding-top:5px">${loginUser.genericName}</span></a>
+                <a href="/logout"><i class="glyphicon glyphicon-log-out"></i></a></p>
         </div>
     </div>
 </div>
@@ -48,9 +46,9 @@
                         <span class="pull-right glyphicon glyphicon-chevron-toggle"></span>
                     </a>
                     <ul id="groupMenu" class="nav nav-list secondmenu collapse" style="height: 0px;">
-                        <li><a href="#" target="right-content"><i
+                        <li><a href="/group/list/${loginUser.id}" target="right-content"><i
                                 class="glyphicon glyphicon-th-list"></i>&nbsp;组表</a></li>
-                        <li><a href="#" target="right-content"><i
+                        <li><a href="/group/add/${loginUser.id}" target="right-content"><i
                                 class="glyphicon glyphicon-plus"></i>&nbsp;添加组</a></li>
                     </ul>
                 </li>
@@ -63,9 +61,9 @@
                         <span class="pull-right glyphicon  glyphicon-chevron-toggle"></span>
                     </a>
                     <ul id="userMenu" class="nav nav-list secondmenu collapse" style="height: 0px;">
-                        <li><a href="/user/list/${user.id}" target="right-content"><i
+                        <li><a href="/user/list/${loginUser.id}" target="right-content"><i
                                 class="glyphicon glyphicon-th-list"></i>&nbsp;用户列表</a></li>
-                        <li><a href="/user/add" target="right-content"><i
+                        <li><a href="/user/add/${loginGroup.id}" target="right-content"><i
                                 class="glyphicon glyphicon-plus"></i>&nbsp;添加用户</a></li>
                     </ul>
                 </li>
@@ -78,9 +76,9 @@
                         <span class="pull-right glyphicon glyphicon-chevron-toggle"></span>
                     </a>
                     <ul id="fileMenu" class="nav nav-list secondmenu collapse">
-                        <li><a href="#" target="right-content"><i
+                        <li><a href="/file/list" target="right-content"><i
                                 class="glyphicon glyphicon-th-list"></i>&nbsp;文件列表</a></li>
-                        <li><a href="#" target="right-content"><i
+                        <li><a href="/file/upload" target="right-content"><i
                                 class="glyphicon glyphicon-file"></i>&nbsp;文件上传</a></li>
                     </ul>
                 </li>
@@ -104,7 +102,7 @@
         <div class="col-md-10">
             <div>
                 <iframe id="right-content" name="right-content" src=""
-                        width="100%" frameborder="no"
+                        width="100%" height="100%" frameborder="no"
                         border="0" marginwidth="0"
                         marginheight=" 0" scrolling="no" allowtransparency="yes">
                 </iframe>
@@ -125,14 +123,14 @@
             var dHeight = iframe.contentWindow.document.documentElement.scrollHeight;
             var height = Math.max(bHeight, dHeight);
             iframe.height = height;
-            console.log(height);
         } catch (ex) {
         }
     }
-    window.setInterval("reinitIframe()", 200);
+
+    window.setInterval("reinitIframe()", 700);
 </script>
 
-<script src="js/jquery.min.js"></script>
-<script src="js/bootstrap-3.3.7-dist/js/bootstrap.js"></script>
+<script src="${pageContext.request.contextPath}/js/jquery.min.js"></script>
+<script src="${pageContext.request.contextPath}/js/bootstrap-3.3.7-dist/js/bootstrap.js"></script>
 </body>
 </html>

@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
 import java.util.Map;
 
 @Service
@@ -14,30 +15,35 @@ import java.util.Map;
 public class UserServiceImpl implements UserService {
 
     @Autowired
-    private UserDao userMenuDao;
+    private UserDao userDao;
 
     @Override
-    public Map<String, Object> getAllUser(Integer uid) {
-        return userMenuDao.getAllUser(uid);
+    public Map<String, Object> getAccessibilityUsers(Integer uid) {
+        return userDao.getAccessibilityUsers(uid);
     }
 
     @Override
     public void saveUser(Users user) {
-        userMenuDao.saveUser(user);
+        userDao.saveUser(user);
     }
 
     @Override
     public void updateUser(Users user) {
-        userMenuDao.updateUser(user);
+        userDao.updateUser(user);
     }
 
     @Override
     public void deleteUser(Integer id) {
-        userMenuDao.deleteUser(id);
+        userDao.deleteUser(id);
     }
 
     @Override
     public Users getUser(Integer id) {
-        return userMenuDao.getUser(id);
+        return userDao.getUser(id);
+    }
+
+    @Override
+    public List<Object[]> getAddGroupUsers(int gid) {
+        return userDao.getAddGroupUsers(gid);
     }
 }

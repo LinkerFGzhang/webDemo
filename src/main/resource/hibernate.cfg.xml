@@ -4,8 +4,10 @@
         "http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
 <hibernate-configuration>
     <session-factory>
-        <property name="connection.url">jdbc:mysql://localhost:3306/demo</property>
+        <property name="connection.url">jdbc:mysql://localhost:3306/demo?useUnicode=true&amp;characterEncoding=UTF-8</property>
         <property name="connection.driver_class">com.mysql.jdbc.Driver</property>
+        <property name="connection.username">root</property>
+        <property name="connection.password">root</property>
         <mapping class="demo.entities.Users" />
         <mapping class="demo.entities.Cameras" />
         <mapping class="demo.entities.Groups" />

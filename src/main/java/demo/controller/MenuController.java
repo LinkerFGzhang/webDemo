@@ -25,4 +25,13 @@ public class MenuController {
         return "home";
     }
 
+    @RequestMapping(value = "/testPut", method = RequestMethod.PUT)
+    public void testPut() {
+        System.out.println("testPut.....");
+    }
+
+    @RequestMapping(value = "/testDelete", method = RequestMethod.DELETE)
+    public void testDelete() {
+        System.out.println("testDelete.....");
+    }
 }

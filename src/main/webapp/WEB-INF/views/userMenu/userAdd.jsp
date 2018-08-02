@@ -9,17 +9,18 @@
 <body>
 <h2>添加用户</h2>
 <form:form action="user/add" method="POST" modelAttribute="user">
-    账  号: <input type="text" name="name"/>
+    <input type="hidden" name="id">
+    账 号: <input type="text" name="name"/>
     <br/>
-    密  码: <input type="password" name="password"/>
+    密 码: <input type="password" name="password"/>
     <br/>
-    姓  名: <input type="text" name="generic_name"/>
+    姓 名: <input type="text" name="genericName"/>
     <br/>
-    用户所属权限: <form:select path="groupsByGroupId.id">
-                    <form:options items="${requestScope.group}" itemValue="id" itemLabel="name"/>
-                </form:select>
+    用户所属组: <form:select path="groupsByGroupId.id">
+    <form:options items="${requestScope.group}" itemValue="id" itemLabel="name"/>
+</form:select>
     <br/>
-    <input type="submit" value="提交" />
+    <input type="submit" value="提交"/>
 </form:form>
 </body>
 </html>
