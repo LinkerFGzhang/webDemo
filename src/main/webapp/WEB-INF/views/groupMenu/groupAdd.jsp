@@ -1,7 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" pageEncoding="utf-8" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
     <title>Add user information</title>
@@ -9,10 +8,10 @@
 </head>
 <body>
 
-<c:if test="${loginGroup.id > 2}">
+<c:if test="${loginUser.groupsByGroupId.id > 2}">
     <p>您没有权限添加用户组</p>
 </c:if>
-<c:if test="${loginGroup.id <=2 && loginGroup.id >=1}">
+<c:if test="${loginUser.groupsByGroupId.id <=2 && loginUser.groupsByGroupId.id >=1}">
     <h2 style="text-align: center">添加组</h2>
     <form:form class="form-horizontal" role="form" action="/group/add" method="post">
 

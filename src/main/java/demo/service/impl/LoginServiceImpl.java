@@ -21,8 +21,4 @@ public class LoginServiceImpl implements LoginService {
         return loginDao.login(username, password);
     }
 
-    @Override
-    public Groups getGroup(int uid) {
-        return loginDao.getGroup(uid);
-    }
 }

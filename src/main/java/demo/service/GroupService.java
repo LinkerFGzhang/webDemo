@@ -2,6 +2,7 @@ package demo.service;
 
 import demo.entities.Groups;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 public interface GroupService {
@@ -10,10 +11,10 @@ public interface GroupService {
 
     public void saveGroup(Groups group);
 
-    public List<Object[]> getAccessibilityGroups(int uid);
+    public List<Object[]> getAccessibilityGroups();
 
-    public void updateGroup(Groups group);
+    public boolean updateGroup(Groups group);
 
-    public void deleteGroup(int gid);
+    public boolean deleteGroup(int gid);
 
 }

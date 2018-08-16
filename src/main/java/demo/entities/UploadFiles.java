@@ -1,17 +1,17 @@
 package demo.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import javax.persistence.*;
+import java.io.Serializable;
 import java.sql.Timestamp;
 import java.util.Collection;
 import java.util.Objects;
 
-/**
- * @author FangJ
- * @create 2018-07-27-22:01
- */
 @Entity
-@Table(name = "upload_files", schema = "demo", catalog = "")
-public class UploadFiles {
+//@JsonIgnoreProperties(value = {"usersById", "handler", "hibernateLazyInitializer", "fieldHandler"})
+@JsonIgnoreProperties(value = {"usersById", "handler", "hibernateLazyInitializer", "fieldHandler"})
+public class UploadFiles implements Serializable {
     private int id;
     private String type;
     private String name;
@@ -117,5 +117,40 @@ public class UploadFiles {
 
     public void setUsersById(Collection<Users> usersById) {
         this.usersById = usersById;
+    }
+
+    public UploadFiles() {
+    }
+
+    public UploadFiles(int id, String type, String name, String fsName, String suffix, Timestamp createTime) {
+        this.id = id;
+        this.type = type;
+        this.name = name;
+        this.fsName = fsName;
+        this.suffix = suffix;
+        this.createTime = createTime;
+    }
+
+    public UploadFiles(int id, String type, String name, String fsName, String suffix, Timestamp createTime, Users usersByUserId) {
+        this.id = id;
+        this.type = type;
+        this.name = name;
+        this.fsName = fsName;
+        this.suffix = suffix;
+        this.createTime = createTime;
+        this.usersByUserId = usersByUserId;
+    }
+
+    @Override
+    public String toString() {
+        return "UploadFiles{" +
+                "id=" + id +
+                ", type='" + type + '\'' +
+                ", name='" + name + '\'' +
+                ", fsName='" + fsName + '\'' +
+                ", suffix='" + suffix + '\'' +
+                ", createTime=" + createTime +
+                ", usersByUserId=" + usersByUserId +
+                '}';
     }
 }

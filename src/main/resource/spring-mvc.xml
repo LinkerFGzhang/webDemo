@@ -28,21 +28,22 @@
     <bean class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
         <property name="defaultEncoding" value="utf-8"/>
         <property name="maxUploadSize" value="5242880"/>
-        <property name="maxInMemorySize" value="10" />
+        <property name="maxInMemorySize" value="10"/>
     </bean>
 
-    <!--  json 序列化
-    <bean id="objectMapper" class="com.xxx.api.json.CustomObjectMapper" init-method="">
-        <property name="camelCaseToLowerCaseWithUnderscores" value="true"/>
-        <property name="dateFormatPattern" value="yyyy-MM-dd HH:mm:ss"/>
+    <!-- json 配置 -->
+    <bean class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter">
+        <property name="messageConverters">
+            <list>
+                <bean class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter">
+                    <property name="supportedMediaTypes">
+                        <list> <!--返回字符串格式json-->
+                            <value>application/json;charset=UTF-8</value>
+                        </list>
+                    </property>
+                </bean>
+            </list>
+        </property>
     </bean>
 
-    <mvc:annotation-driven>
-        <mvc:message-converters>
-            <bean class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter">
-                <property name="objectMapper" ref="objectMapper"/>
-            </bean>
-        </mvc:message-converters>
-    </mvc:annotation-driven>
-    -->
 </beans>

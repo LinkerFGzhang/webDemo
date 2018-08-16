@@ -6,6 +6,4 @@ import demo.entities.Users;
 public interface LoginDao {
 
     public Users login(String username, String password);
-
-    public Groups getGroup(int uid);
 }

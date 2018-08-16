@@ -22,7 +22,7 @@ public class LoginDaoImpl extends HibernateDaoSupport implements LoginDao {
 
     @Override
     public Users login(String username, String password) {
-        String hql = "from Users where name=? and password=?";
+        String hql = "select u from Users u inner join u.groupsByGroupId where u.name=? and u.password=?";
         Query<Users> query = getSessionFactory().getCurrentSession().createQuery(hql);
         query.setParameter(0, username).setParameter(1, password);
         Users temp = query.uniqueResult();
@@ -30,11 +30,5 @@ public class LoginDaoImpl extends HibernateDaoSupport implements LoginDao {
             return temp;
         }
         return null;
-    }
-
-    @Override
-    public Groups getGroup(int uid) {
-        String hql = "select g from Users u inner join u.groupsByGroupId g where u.id=?";
-        return (Groups) getSessionFactory().getCurrentSession().createQuery(hql).setParameter(0, uid).uniqueResult();
     }
 }

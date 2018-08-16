@@ -23,6 +23,35 @@
         <url-pattern>/*</url-pattern>
     </filter-mapping>
 
+    <!--<filter>-->
+    <!--<filter-name>HttpPutFormContentFilter</filter-name>-->
+    <!--<filter-class>org.springframework.web.filter.HttpPutFormContentFilter</filter-class>-->
+    <!--</filter>-->
+    <!--<filter-mapping>-->
+    <!--<filter-name>HttpPutFormContentFilter</filter-name>-->
+    <!--<url-pattern>/*</url-pattern>-->
+    <!--</filter-mapping>-->
+
+    <!-- 把post请求转化为 delete 或 put 请求-->
+    <filter>
+    <filter-name>HiddenHttpMethodFilter</filter-name>
+    <filter-class>org.springframework.web.filter.HiddenHttpMethodFilter</filter-class>
+    </filter>
+
+    <filter-mapping>
+    <filter-name>HiddenHttpMethodFilter</filter-name>
+    <url-pattern>/*</url-pattern>
+    </filter-mapping>
+
+    <filter>
+        <filter-name>openSessionInViewFilter</filter-name>
+        <filter-class>org.springframework.orm.hibernate5.support.OpenSessionInViewFilter</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>openSessionInViewFilter</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
+
     <!-- spring 的配置文件-->
     <context-param>
         <param-name>contextConfigLocation</param-name>
@@ -36,35 +65,6 @@
     <listener>
         <listener-class>org.springframework.web.context.request.RequestContextListener</listener-class>
     </listener>
-
-    <!-- 把post请求转化为 delete 或 put 请求-->
-    <filter>
-        <filter-name>HiddenHttpMethodFilter</filter-name>
-        <filter-class>org.springframework.web.filter.HiddenHttpMethodFilter</filter-class>
-    </filter>
-
-    <filter-mapping>
-        <filter-name>HiddenHttpMethodFilter</filter-name>
-        <url-pattern>/*</url-pattern>
-    </filter-mapping>
-
-    <!--<filter>-->
-        <!--<filter-name>HttpPutFormContentFilter</filter-name>-->
-        <!--<filter-class>org.springframework.web.filter.HttpPutFormContentFilter</filter-class>-->
-    <!--</filter>-->
-    <!--<filter-mapping>-->
-        <!--<filter-name>HttpPutFormContentFilter</filter-name>-->
-        <!--<url-pattern>/*</url-pattern>-->
-    <!--</filter-mapping>-->
-
-    <filter>
-        <filter-name>openSessionInViewFilter</filter-name>
-        <filter-class>org.springframework.orm.hibernate5.support.OpenSessionInViewFilter</filter-class>
-    </filter>
-    <filter-mapping>
-        <filter-name>openSessionInViewFilter</filter-name>
-        <url-pattern>/*</url-pattern>
-    </filter-mapping>
 
     <servlet-mapping>
         <servlet-name>default</servlet-name>

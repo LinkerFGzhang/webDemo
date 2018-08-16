@@ -3,20 +3,21 @@ package demo.repository;
 import demo.entities.Users;
 
 import java.util.List;
-import java.util.Map;
 
 public interface UserDao {
-    public Map<String, Object> getAccessibilityUsers(Integer uid);
+    public List<Users> getAccessibilityUsers(String hql);
 
     public void saveUser(Users user);
 
     public void updateUser(Users user);
 
-    public void deleteUser(Integer id);
+    public void deleteUser(Users user);
 
     public Users getUser(Integer id);
 
-    public List<Object[]> getAddGroupUsers(int gid);
+    public List<Users> getAddGroupUsers(int gid);
 
-    public void test();
+    public Users getOwner(int gid);
+
+    public Users test();
 }

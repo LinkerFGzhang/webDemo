@@ -1,16 +1,15 @@
 package demo.entities;
 
+import com.fasterxml.jackson.annotation.*;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.sql.Timestamp;
 import java.util.Objects;
 
-/**
- * @author FangJ
- * @create 2018-07-27-22:01
- */
 @Entity
-public class Users  implements Serializable {
+@JsonIgnoreProperties(value = {"hibernateLazyInitializer", "handler", "fieldHandler"})
+public class Users implements Serializable {
     private int id;
     private String name;
     private String password;
@@ -108,19 +107,21 @@ public class Users  implements Serializable {
         this.groupsByGroupId = groupsByGroupId;
     }
 
-    @Override
-    public String toString() {
-        return "Users{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", password='" + password + '\'' +
-                ", genericName='" + genericName + '\'' +
-                ", token='" + token + '\'' +
-                ", createTime=" + createTime +
-                '}';
+    public Users() {
     }
 
-    public Users() {
+    public Users(int id) {
+        this.id = id;
+    }
+
+    public Users(int id, String name, String password, String genericName, String token, Timestamp createTime, Groups groupsByGroupId) {
+        this.id = id;
+        this.name = name;
+        this.password = password;
+        this.genericName = genericName;
+        this.token = token;
+        this.createTime = createTime;
+        this.groupsByGroupId = groupsByGroupId;
     }
 
     public Users(int id, String name, String password, String genericName, String token, Timestamp createTime) {
@@ -136,5 +137,18 @@ public class Users  implements Serializable {
         this.id = id;
         this.name = name;
         this.password = password;
+    }
+
+    @Override
+    public String toString() {
+        return "Users{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", password='" + password + '\'' +
+                ", genericName='" + genericName + '\'' +
+                ", token='" + token + '\'' +
+                ", createTime=" + createTime +
+                ", groupsByGroupId=" + groupsByGroupId +
+                '}';
     }
 }

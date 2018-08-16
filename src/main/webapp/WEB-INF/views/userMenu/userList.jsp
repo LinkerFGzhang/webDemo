@@ -5,7 +5,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-    <title>user list</title>
+    <title>User list</title>
     <link href="${pageContext.request.contextPath}/js/bootstrap-3.3.7-dist/css/bootstrap.css" rel="stylesheet">
 
     <style type="text/css">
@@ -18,10 +18,9 @@
     </style>
 </head>
 <body>
-<!--设置隐藏域属性 name为 _method 值为 DELETE-->
-<form action="" method="post">
-    <input type="hidden" name="_method" value="DELETE"/>
-</form>
+
+${loginUser}<br>
+${loginUser.id}---${loginUser.name}---${loginUser.groupsByGroupId.name}---${loginUser.groupsByGroupId.description}<br>
 
 <!-- test -->
 <%-------${requestScope.allUser}<br/>--%>
@@ -48,12 +47,22 @@
     </c:if>
 </c:if>
 
-<!--
-    g[0]为 Groups列表，g[1]为与其相关联的 Users表
-    u[0]为 Users列表，u[1]为与其相关联的 Groups表
--->
+
 <c:if test="${!empty requestScope.allUser}">
-    <nav id="navbar-example2" class="navbar navbar-light bg-faded nav nav-tabs nav-justified">
+
+    <%--<div class="navbar navbar-duomi navbar-static-top" role="navigation">--%>
+        <%--<div class="container-fluid">--%>
+            <%--<div class="navbar-header">--%>
+                <%--<ul class="nav nav-pills nav-tabs" role="tablist">--%>
+                    <%--<c:forEach items="${requestScope.allGroup}" var="g">--%>
+                        <%--<li><a href="#${g[0].name}" role="tab" data-toggle="pill">${g[0].description}</a></li>--%>
+                    <%--</c:forEach>--%>
+                <%--</ul>--%>
+            <%--</div>--%>
+        <%--</div>--%>
+    <%--</div>--%>
+
+    <nav id="navbar-example2" class="nav nav-pills nav-justified">
         <h3 class="navbar-brand">用户列表</h3><br/>
         <ul class="nav nav-pills nav-tabs" role="tablist">
             <c:forEach items="${requestScope.allGroup}" var="g">
@@ -61,9 +70,10 @@
             </c:forEach>
         </ul>
     </nav>
+
     <div class="tab-content">
         <c:forEach items="${requestScope.allGroup}" var="g">
-            <div id="${g[0].name}" data-spy="scroll" data-target="#navbar-example2" data-offset="0"
+            <div id="${g.name}" data-spy="scroll" data-target="#navbar-example2" data-offset="0"
                  class="scrollspy-example tabs-content">
                 <table class="table table-striped table-hover" style="border: 1px">
                     <c:if test="${loginUser.id == 1}">
@@ -99,16 +109,16 @@
                     <tbody>
                     <!-- 各分组下的用户 -->
                     <c:forEach items="${requestScope.allUser}" var="u">
-                        <c:if test="${g[0].description == u[1].description}">
+                        <c:if test="${g.description == u.groupsByGroupId.description}">
                             <tr>
-                                <th>${u[0].id}</th>
-                                <th>${u[0].name}</th>
-                                <th>${u[0].genericName}</th>
+                                <th>${u.id}</th>
+                                <th>${u.name}</th>
+                                <th>${u.genericName}</th>
                                 <th>null</th>
-                                <th>${u[0].createTime}</th>
-                                <th>${u[1].description}</th>
-                                <th><<a href="/user/${u[0].id}">Edit</a></th>
-                                <th><<a class="delete" href="/user/${u[0].id}">Delete</a></th>
+                                <th>${u.createTime}</th>
+                                <th>${u.groupsByGroupId.description}</th>
+                                <th><<a href="/user/${u.id}">Edit</a></th>
+                                <th><<a class="delete" href="/user/${u.id}">Delete</a></th>
                             </tr>
                         </c:if>
                     </c:forEach>
@@ -119,15 +129,8 @@
     </div>
 </c:if>
 
-<!--jQuery 实现将 action 修改为 delete-->
 <script type="text/javascript">
-    $(function () {
-        $(".delete").click(function () {
-            var href = $(this).attr("href");
-            $("form").attr("action", href).sumbit();
-            return false;
-        })
-    })
+
 </script>
 
 <script src="${pageContext.request.contextPath}/js/jquery.min.js"></script>

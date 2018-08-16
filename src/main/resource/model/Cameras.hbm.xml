@@ -9,28 +9,28 @@
             <column name="id" sql-type="int(11)"/>
         </id>
         <property name="name">
-            <column name="name" sql-type="varchar(20)" length="20"/>
+            <column name="name" sql-type="varchar(20)" length="20" not-null="true"/>
         </property>
         <property name="description">
-            <column name="description" sql-type="varchar(40)" length="40" not-null="true"/>
+            <column name="description" sql-type="varchar(40)" length="40" />
         </property>
         <property name="url">
-            <column name="url" sql-type="varchar(100)" length="100"/>
+            <column name="url" sql-type="varchar(100)" length="100" not-null="true"/>
         </property>
         <property name="width">
-            <column name="width" sql-type="int(11)"/>
+            <column name="width" sql-type="int(11)" not-null="true"/>
         </property>
         <property name="height">
-            <column name="height" sql-type="int(11)"/>
+            <column name="height" sql-type="int(11)" not-null="true"/>
         </property>
         <property name="address">
-            <column name="address" sql-type="varchar(50)" length="50" not-null="true"/>
+            <column name="address" sql-type="varchar(50)" length="50" />
         </property>
         <property name="longitude">
-            <column name="longitude" sql-type="decimal(9,6)" precision="9" scale="6"/>
+            <column name="longitude" sql-type="decimal(9,6)" precision="9" scale="6" not-null="true"/>
         </property>
         <property name="latitude">
-            <column name="latitude" sql-type="decimal(9,6)" precision="9" scale="6"/>
+            <column name="latitude" sql-type="decimal(9,6)" precision="9" scale="6" not-null="true"/>
         </property>
         <many-to-one name="usersByUserId" class="demo.entities.Users">
             <column name="user_id"/>

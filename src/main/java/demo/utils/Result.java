@@ -1,30 +1,34 @@
 package demo.utils;
 
-
 public class Result<D> {
 
-    /**错误码*/
-    private int code;
-    /**提示信息*/
-    private String msg;
-    /**具体的内容*/
+    /**
+     * 错误码
+     */
+    private int status;
+    /**
+     * 提示信息
+     */
+    private String info;
+    /**
+     * 具体的内容
+     */
     private D data;
 
-
-    public int getCode() {
-        return code;
+    public int getStatus() {
+        return status;
     }
 
-    public void setCode(int code) {
-        this.code = code;
+    public void setStatus(int status) {
+        this.status = status;
     }
 
-    public String getMsg() {
-        return msg;
+    public String getInfo() {
+        return info;
     }
 
-    public void setMsg(String msg) {
-        this.msg = msg;
+    public void setInfo(String info) {
+        this.info = info;
     }
 
     public D getData() {

@@ -1,0 +1,78 @@
+/**
+    使用 postman 进行后台测试软件
+*/
+
+/rest/methodtest/1  -- DELETE
+{
+	"id":4,
+	"name":"test",
+	"description":"asd"
+}
+
+//header设置 enctype="multipart/form-data"
+//body设置 file属性
+/file/upload  -- PUT
+{
+	"id":4,
+	"name":"test4",
+	"usersByUserId":{
+		"id":2,
+		"name":"testuser",
+		"groupsByGroupId":{
+			"id":1,
+			"name":"asd"
+		}
+	}
+}
+
+
+
+users 测试json  --add  update 
+{
+	"id":6,
+	"name":"testuser",
+	"password":"123",
+	"headId":null,
+	"genericName":"测试用户",
+	"token":null,
+	"groupsByGroupId":{
+		"id":1
+	}
+}
+
+
+
+group 测试json  --add update 
+{
+	"group":{
+		"id":14,
+		"name":"test14",
+		"description":"test14"
+	},
+	"usersByOwnerId":{
+		"id":2
+	}
+}
+使用 ObjectMapper 将json数据转化为相应的实体类
+	ObjectMapper mapper = new ObjectMapper();
+    Groups group = mapper.convertValue(map.get("group"), Groups.class);
+    Users user = mapper.convertValue(map.get("usersByOwnerId"), Users.class);
+
+	
+
+camera 测试数据 json  -add  update 
+{
+	"id":12,
+	"name":"test12",
+	"description":"test12",
+	"address":"address12",
+	"url":"url12",
+	"longitude":52,
+	"latitude":35,
+	"height":703,
+	"width":575,
+	"usersByUserId":{
+		"id":1
+	}
+}
+

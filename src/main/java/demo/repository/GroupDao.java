@@ -10,9 +10,11 @@ public interface GroupDao {
 
     public void saveGroup(Groups group);
 
-    public List<Object[]> getAccessibilityGroups(int uid);
+    public List<Object[]> getAccessibilityGroups(String hql);
 
     public void updateGroup(Groups group);
 
     public void deleteGroup(int gid);
+
+    public Groups getGroupById(int id);
 }

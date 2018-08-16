@@ -9,10 +9,14 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 @Controller
 public class LoginController {
+
+    @Autowired
+    private HttpServletRequest request;
 
     @Autowired
     private LoginService loginService;
@@ -23,15 +27,13 @@ public class LoginController {
     }
 
     @RequestMapping(name = "/login", method = RequestMethod.POST)
-    public String login(@ModelAttribute Users temp, HttpSession session) {
+    public String login(@ModelAttribute Users temp) {
         Users user = loginService.login(temp.getName(), temp.getPassword());
+        HttpSession session = request.getSession();
         System.out.println(user);
         if (user != null) {
 
             session.setAttribute("loginUser", user);
-            Groups groups = loginService.getGroup(user.getId());
-            System.out.println(groups);
-            session.setAttribute("loginGroup", groups);
             return "redirect:menu";
         } else {
             session.setAttribute("message", "用户名或密码错误");

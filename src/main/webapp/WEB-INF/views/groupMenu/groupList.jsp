@@ -10,17 +10,11 @@
 <body>
 <h2 style="text-align: center">用户组列表</h2>
 <br/>
-<!--将 post 请求转化为 delete-->
-<form action="" method="post">
-    <input type="hidden" name="_method" value="DELETE"/>
-</form>
 
 <c:if test="${ empty requestScope.groupLists}">
     您当前的权限不足
 </c:if>
-<!--
-    g[0]表示为用户所在组权限所能访问到的组别，g[1]表示为用户所在的组的所有者owner
--->
+
 <c:if test="${! empty requestScope.groupLists}">
     <table class="table table-striped table-hover" style="border: 1px;cellpadding:5px;mso-cellspacing: 10px">
         <thead>
@@ -35,13 +29,12 @@
         </thead>
         <tbody>
         <c:forEach items="${requestScope.groupLists}" var="g">
-            <tr id="${g[0].id}">
+            <tr>
                 <td>${g[0].id}</td>
                 <td>${g[0].name}</td>
                 <td>${g[0].description}</td>
                 <td>${g[1].genericName}</td>
                 <td>
-                    <!-- data-toggle="modal" data-target="#groupModify" -->
                     <button class="testEdit btn btn-primary btn-sm" onclick="editModal(this)">Edit
                     </button>
                 </td>
@@ -56,23 +49,24 @@
 </c:if>
 
 <!-- 编辑模态框（Modal） -->
-<div class="modal fade" id="groupModify" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <!-- header -->
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
-                    &times;
-                </button>
-                <h4 class="modal-title" id="myModalLabel" style="text-align: center">
-                    编&nbsp;&nbsp;&nbsp;辑
-                </h4>
-            </div>
-            <!-- body -->
-            <div class="modal-body">
-                <!-- 表单回显 -->
-                <form class="form-horizontal" role="form" method="post">
-                    <input type="hidden" name="_method" value="PUT">
+<form id="editForm" action="" method="post" class="form-horizontal" role="form" style="margin: 20px;">
+    <input type="hidden" name="_method" value="PUT">
+    <div class="modal fade" id="groupModify" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+         aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <!-- header -->
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                        &times;
+                    </button>
+                    <h4 class="modal-title" id="myModalLabel" style="text-align: center">
+                        编&nbsp;&nbsp;&nbsp;辑
+                    </h4>
+                </div>
+                <!-- body -->
+                <div class="modal-body">
+                    <!-- 表单回显 -->
                     <div class="form-group">
                         <label for="editId" class="col-sm-2 control-label">ID</label>
                         <div class="col-sm-10">
@@ -98,47 +92,49 @@
                                    disabled="true">
                         </div>
                     </div>
-                </form>
-            </div>
-            <!-- footer -->
-            <div class="modal-footer">
-                <button type="button" class="btn btn-default" onclick="editSubmit(this)">提交</button>
-                <button type="button" class="btn btn-primary" data-dismiss="modal">取消</button>
-            </div>
-        </div><!-- /.modal-content -->
-    </div><!-- /.modal -->
-</div>
+                </div>
+                <!-- footer -->
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-default" onclick="editSubmit(this)">提交</button>
+                    <button type="button" class="btn btn-primary" data-dismiss="modal">取消</button>
+                    <%--<span id="editTip"></span>--%>
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal -->
+    </div>
+</form>
 
 <!-- 删除模态框（Modal） -->
-<div class="modal fade" id="groupDelete" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <!-- header -->
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
-                    &times;
-                </button>
-                <h4 class="modal-title">
-                    删&nbsp;&nbsp;&nbsp;除
-                </h4>
-            </div>
-            <!-- body -->
-            <div class="modal-body">
-                <p>您确定要删除这些信息吗?</p>
-                <input type="hidden" id="tempId">
-                <form id="deleteForm" action="" method="post">
-                    <input type="hidden" name="_method" value="DELETE">
-                </form>
-            </div>
-            <!-- footer -->
-            <div class="modal-footer">
-                <button type="button" class="btn btn-default" onclick="deleteSubmit(this)">确定</button>
-                <button type="button" class="btn btn-primary" data-dismiss="modal">取消</button>
+<form id="deleteForm" action="" method="post">
+    <input type="hidden" name="_method" value="DELETE">
+    <input type="hidden" id="tempId">
+    <div class="modal fade" id="groupDelete" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+         aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <!-- header -->
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                        &times;
+                    </button>
+                    <h4 class="modal-title">
+                        删&nbsp;&nbsp;&nbsp;除
+                    </h4>
+                </div>
+                <!-- body -->
+                <div class="modal-body">
+                    <p>您确定要删除这些信息吗?</p>
+                </div>
+                <!-- footer -->
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-default" onclick="deleteSubmit()">确定</button>
+                    <button type="button" class="btn btn-primary" data-dismiss="modal">取消</button>
+                    <span id="deleteTip"></span>
+                </div>
             </div>
         </div>
     </div>
-</div>
-
+</form>
 
 <script type="text/javascript">
 
@@ -160,32 +156,39 @@
     function editSubmit(obj) {
         var newId = $('#editId').val();
         var newName = $('#editName').val();
-        var newDesription = $('#editDescription').val();
-        var newOwner = $('#editOwner').val();
-        //alert(newId + " " + newName + "  " + newDesription);
+        var newDescription = $('#editDescription').val();
+        //var newOwner = $('#editOwner').val();
         if (newName == '') {
             alert('请输入组名');
             return
         }
-        if (newDesription == '') {
+        if (newDescription == '') {
             alert('请输入组描述');
             return
         }
-        var href = "${pageContext.request.contextPath}/group/update";
-        console.log(href)
         $.ajax({
-            type: "post",
-            url: "${pageContext.request.contextPath}/group/update",
-            data: {"id": newId, "name": newName, "description": newDesription},
+            type: "put",
+            url: "/group/update",
+            data: {"id": newId, "name": newName, "description": newDescription},
             datatype: JSON,
             contextTypes: "application/json,charset=utf-8",
             success: function (data) {
-                window.location.reload();
-                // $.tooltip('删除成功～', 2000, true, function () {
-                //     $.closeDialog();
-                // });
+                //json数据转化为对象
+                alert(data)
+                var obj = eval("(" + data + ")");
+                alert(obj)
+                if (data > 0) {
+                    location.reload()
+                }
+                else {
+                    alert("失败，请重新尝试")
+                }
+            },
+            error: function (data) {
+                alert("请求出错")
             }
         });
+        return false;
     }
 
     // 删除模态框
@@ -193,19 +196,36 @@
         var gId = $(obj).closest("tr").find("td:eq(0)").text();
         $("#tempId").val(gId);
         $('#groupDelete').modal("toggle");
+        return false;
     }
 
     // 删除 确定
-    function deleteSubmit(obj) {
+    function deleteSubmit() {
         var gId = $('#tempId').val();
-        <%--var href = "${pageContext.request.contextPath}/group/delete/" + gId;--%>
-        var href = "/testDelete";
-        alert(href);
-        console.log(href)
-        $("#deleteForm").attr("action", href).submit();
-        window.location.reload();
+        var href = "${pageContext.request.contextPath}/group/delete/" + gId;
+        //JSON.stringify()
+        $.ajax({
+            type: "delete",
+            url: "/group/delete/" + gId,
+            data: {"gId": gId},
+            datatype: JSON,
+            contextTypes: "application/json,charset=utf-8",
+            success: function (data) {
+                alert(data)
+                if (data > 0) {
+                    $("#deleteTip").html("<span style='color:#3ee249'>恭喜，删除成功！</span>");
+                    location.reload();
+                }
+                else {
+                    $("#deleteTip").html("<span style='color:#e23215'>失败，请重新尝试!</span>");
+                }
+            },
+            error: function () {
+                alert("请求出错...")
+            }
+        });
+        return false;
     }
-
 </script>
 
 <script src="${pageContext.request.contextPath}/js/jquery.min.js"></script>

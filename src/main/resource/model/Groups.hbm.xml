@@ -12,7 +12,7 @@
             <column name="name" sql-type="varchar(20)" length="20"/>
         </property>
         <property name="description">
-            <column name="description" sql-type="varchar(40)" length="40" not-null="true"/>
+            <column name="description" sql-type="varchar(40)" length="40"/>
         </property>
         <many-to-one name="usersByOwnerId" class="demo.entities.Users" cascade="none">
             <column name="owner_id" not-null="true"/>

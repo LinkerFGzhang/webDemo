@@ -1,14 +1,13 @@
 package demo.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Objects;
 
-/**
- * @author FangJ
- * @create 2018-07-27-22:01
- */
 @Entity
+@JsonIgnoreProperties(value = {"usersByOwnerId", "hibernateLazyInitializer", "handler", "fieldHandler"})
 public class Groups implements Serializable {
     private int id;
     private String name;
@@ -57,7 +56,6 @@ public class Groups implements Serializable {
 
     @Override
     public int hashCode() {
-
         return Objects.hash(id, name, description);
     }
 
@@ -71,6 +69,19 @@ public class Groups implements Serializable {
         this.usersByOwnerId = usersByOwnerId;
     }
 
+    public Groups() {
+    }
+
+    public Groups(int id) {
+        this.id = id;
+    }
+
+    public Groups(int id, String name, String description) {
+        this.id = id;
+        this.name = name;
+        this.description = description;
+    }
+
     @Override
     public String toString() {
         return "Groups{" +
@@ -78,15 +89,6 @@ public class Groups implements Serializable {
                 ", name='" + name + '\'' +
                 ", description='" + description + '\'' +
                 '}';
-    }
-
-    public Groups() {
-    }
-
-    public Groups(int id, String name, String description) {
-        this.id = id;
-        this.name = name;
-        this.description = description;
     }
 
     public Groups(int id, String name, String description, Users usersByOwnerId) {

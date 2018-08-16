@@ -1,6 +1,5 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" pageEncoding="utf-8" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -19,8 +18,9 @@
             </ul>
             <p class="navbar-text navbar-right"><i class="glyphicon glyphicon-th-list"></i><a
                     href="user/toUpdate?id=${loginUser.id}"><span
-                    style="padding-top:5px">${loginUser.genericName}</span></a>
-                <a href="/logout"><i class="glyphicon glyphicon-log-out"></i></a></p>
+                    style="padding-top:5px">${loginUser.genericName}&nbsp;${loginUser.groupsByGroupId.id}</span></a>
+                <a href="/logout"><i class="glyphicon glyphicon-log-out"></i></a>
+            </p>
         </div>
     </div>
 </div>
@@ -29,7 +29,7 @@
     <div class="row">
         <!--左侧内容-->
         <div class="col-md-2">
-            <ul id="main-nav" class="main-nav nav nav-tabs nav-stacked" style="">
+            <ul id="main-nav" class="main-nav nav nav-tabs nav-stacked">
                 <!--首页-->
                 <li>
                     <a href="/home" target="right-content">
@@ -46,9 +46,9 @@
                         <span class="pull-right glyphicon glyphicon-chevron-toggle"></span>
                     </a>
                     <ul id="groupMenu" class="nav nav-list secondmenu collapse" style="height: 0px;">
-                        <li><a href="/group/list/${loginUser.id}" target="right-content"><i
+                        <li><a href="${pageContext.request.contextPath}/group/list/${loginUser.id}" target="right-content"><i
                                 class="glyphicon glyphicon-th-list"></i>&nbsp;组表</a></li>
-                        <li><a href="/group/add/${loginUser.id}" target="right-content"><i
+                        <li><a href="${pageContext.request.contextPath}/group/add/${loginUser.groupsByGroupId.id}" target="right-content"><i
                                 class="glyphicon glyphicon-plus"></i>&nbsp;添加组</a></li>
                     </ul>
                 </li>
@@ -61,9 +61,9 @@
                         <span class="pull-right glyphicon  glyphicon-chevron-toggle"></span>
                     </a>
                     <ul id="userMenu" class="nav nav-list secondmenu collapse" style="height: 0px;">
-                        <li><a href="/user/list/${loginUser.id}" target="right-content"><i
+                        <li><a href="${pageContext.request.contextPath}/user/list/${loginUser.id}" target="right-content"><i
                                 class="glyphicon glyphicon-th-list"></i>&nbsp;用户列表</a></li>
-                        <li><a href="/user/add/${loginGroup.id}" target="right-content"><i
+                        <li><a href="${pageContext.request.contextPath}/user/add/${loginGroup.id}" target="right-content"><i
                                 class="glyphicon glyphicon-plus"></i>&nbsp;添加用户</a></li>
                     </ul>
                 </li>
@@ -76,9 +76,9 @@
                         <span class="pull-right glyphicon glyphicon-chevron-toggle"></span>
                     </a>
                     <ul id="fileMenu" class="nav nav-list secondmenu collapse">
-                        <li><a href="/file/list" target="right-content"><i
+                        <li><a href="${pageContext.request.contextPath}/file/list" target="right-content"><i
                                 class="glyphicon glyphicon-th-list"></i>&nbsp;文件列表</a></li>
-                        <li><a href="/file/upload" target="right-content"><i
+                        <li><a href="${pageContext.request.contextPath}/file/upload" target="right-content"><i
                                 class="glyphicon glyphicon-file"></i>&nbsp;文件上传</a></li>
                     </ul>
                 </li>
@@ -91,7 +91,9 @@
                         <span class="pull-right glyphicon glyphicon-chevron-toggle"></span>
                     </a>
                     <ul id="camerasMenu" class="nav nav-list secondmenu collapse">
-                        <li><a href="#" target="right-content"><i
+                        <li><a href="/camera/list" target="right-content"><i
+                                class="glyphicon glyphicon-facetime-video"></i>&nbsp;摄像头配置</a></li>
+                        <li><a href="/camera/add" target="right-content"><i
                                 class="glyphicon glyphicon-facetime-video"></i>&nbsp;摄像头配置</a></li>
                     </ul>
                 </li>
@@ -112,23 +114,23 @@
 </div>
 </div>
 
-<script type="text/javascript">
-    /**
-     * iframe 的高度自适应
-     */
-    function reinitIframe() {
-        var iframe = document.getElementById("right-content");
-        try {
-            var bHeight = iframe.contentWindow.document.body.scrollHeight;
-            var dHeight = iframe.contentWindow.document.documentElement.scrollHeight;
-            var height = Math.max(bHeight, dHeight);
-            iframe.height = height;
-        } catch (ex) {
-        }
-    }
+<%--<script type="text/javascript">--%>
+<%--/**--%>
+<%--* iframe 的高度自适应--%>
+<%--*/--%>
+<%--function reinitIframe() {--%>
+<%--var iframe = document.getElementById("right-content");--%>
+<%--try {--%>
+<%--var bHeight = iframe.contentWindow.document.body.scrollHeight;--%>
+<%--var dHeight = iframe.contentWindow.document.documentElement.scrollHeight;--%>
+<%--var height = Math.max(bHeight, dHeight);--%>
+<%--iframe.height = height;--%>
+<%--} catch (ex) {--%>
+<%--}--%>
+<%--}--%>
 
-    window.setInterval("reinitIframe()", 700);
-</script>
+<%--window.setInterval("reinitIframe()", 700);--%>
+<%--</script>--%>
 
 <script src="${pageContext.request.contextPath}/js/jquery.min.js"></script>
 <script src="${pageContext.request.contextPath}/js/bootstrap-3.3.7-dist/js/bootstrap.js"></script>

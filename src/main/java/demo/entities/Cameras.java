@@ -1,15 +1,15 @@
 package demo.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import javax.persistence.*;
+import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Objects;
 
-/**
- * @author FangJ
- * @create 2018-07-27-22:01
- */
 @Entity
-public class Cameras {
+@JsonIgnoreProperties(value = {"hibernateLazyInitializer", "handler", "fieldHandler"})
+public class Cameras implements Serializable {
     private int id;
     private String name;
     private String description;
@@ -141,5 +141,49 @@ public class Cameras {
 
     public void setUsersByUserId(Users usersByUserId) {
         this.usersByUserId = usersByUserId;
+    }
+
+    @Override
+    public String toString() {
+        return "Cameras{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", description='" + description + '\'' +
+                ", url='" + url + '\'' +
+                ", width=" + width +
+                ", height=" + height +
+                ", address='" + address + '\'' +
+                ", longitude=" + longitude +
+                ", latitude=" + latitude +
+                ", usersByUserId=" + usersByUserId +
+                '}';
+    }
+
+    public Cameras() {
+    }
+
+    public Cameras(int id, String name, String description, String url, int width, int height, String address, BigDecimal longitude, BigDecimal latitude, Users usersByUserId) {
+        this.id = id;
+        this.name = name;
+        this.description = description;
+        this.url = url;
+        this.width = width;
+        this.height = height;
+        this.address = address;
+        this.longitude = longitude;
+        this.latitude = latitude;
+        this.usersByUserId = usersByUserId;
+    }
+
+    public Cameras(int id, String name, String description, String url, int width, int height, String address, BigDecimal longitude, BigDecimal latitude) {
+        this.id = id;
+        this.name = name;
+        this.description = description;
+        this.url = url;
+        this.width = width;
+        this.height = height;
+        this.address = address;
+        this.longitude = longitude;
+        this.latitude = latitude;
     }
 }

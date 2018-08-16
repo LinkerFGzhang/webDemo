@@ -5,41 +5,43 @@
     <link href="${pageContext.request.contextPath}/js/bootstrap-3.3.7-dist/css/bootstrap.css" rel="stylesheet">
 </head>
 <body style="height: 100%">
-<h2 style="text-align: center">文件列表</h2>
+<h2 style="text-align: center">摄像头列表</h2>
 
-<%--<c:forEach items="${requestScope.fileList}" var="f">--%>
-<%--${f.id}---${f.type}---${f.name}---${f.usersByUserId.genericName}<br>--%>
-<%--</c:forEach>--%>
-
-<c:if test="${ empty requestScope.fileList}">
+<c:if test="${ empty requestScope.cameraList}">
     您当前的权限不足
 </c:if>
 
-<c:if test="${!empty requestScope.fileList}">
+<c:if test="${!empty requestScope.cameraList}">
     <table class="table table-striped table-hover" style="border: 1px;cellpadding:5px;mso-cellspacing: 10px">
         <thead>
         <tr>
             <th>Id</th>
             <th>name</th>
-            <th>type</th>
-            <th>owner</th>
-            <th>fs_name</th>
-            <th>suffix</th>
-            <th>create_time</th>
+            <th>description</th>
+            <th>url</th>
+            <th>address</th>
+            <th>height</th>
+            <th>width</th>
+            <th>longitude</th>
+            <th>latitude</th>
+            <th>managerUser</th>
             <th>Edit</th>
             <th>Delete</th>
         </tr>
         </thead>
         <tbody>
-        <c:forEach items="${requestScope.fileList}" var="f">
+        <c:forEach items="${requestScope.cameraList}" var="c">
             <tr>
-                <td>${f.id}</td>
-                <td>${f.name}</td>
-                <td>${f.type}</td>
-                <td>${f.usersByUserId.genericName}</td>
-                <td>${f.fsName}</td>
-                <td>${f.suffix}</td>
-                <td>${f.createTime}</td>
+                <td>${c.id}</td>
+                <td>${c.name}</td>
+                <td>${c.description}</td>
+                <td>${c.url}</td>
+                <td>${c.address}</td>
+                <td>${c.height}</td>
+                <td>${c.width}</td>
+                <td>${c.longitude}</td>
+                <td>${c.latitude}</td>
+                <td>${c.usersByUserId.genericName}</td>
                 <td>
                     <button class="testEdit btn btn-primary btn-sm" onclick="editModal(this)">Edit
                     </button>
